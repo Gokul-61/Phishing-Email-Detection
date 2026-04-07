@@ -12,10 +12,11 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from scipy.sparse import hstack, csr_matrix
+import os
 
 
 
-nltk.download('stopwords', quiet=True)
+nltk.download('stopwords')
 
 app = Flask(__name__)
 
@@ -226,4 +227,5 @@ def predict_route():
 if __name__ == '__main__':
     print("🛡️  Phishing Detector starting on http://localhost:5000")
     print("   Make sure best_phishing_model.pkl and tfidf_vectorizer.pkl are in the same folder.")
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
